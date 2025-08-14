@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Memuat...</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #00AEEF, #005A8D);
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+.bar {
+  width: 4px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+.bar::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: #fff;
+  animation: load 1s ease-in-out forwards;
+}
+@keyframes load {
+  to { height: 100%; }
+}
+.text {
+  margin-top: 16px;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+<div class="bar"></div>
+<div class="text">Memuat...</div>
+<script>
+setTimeout(function () {
+  window.location.href = 'lacak.html';
+}, 1000);
+</script>
+</body>
+</html>
