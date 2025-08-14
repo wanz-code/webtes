@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cermin Kamera</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  video {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+    transform: scaleX(-1); /* efek cermin */
+    border-radius: 10px;
+    background: #222;
+  }
+  .controls {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .on { background: #28a745; color: white; }
+  .off { background: #dc3545; color: white; }
+</style>
+</head>
+<body>
+  <video id="mirror" autoplay playsinline muted></video>
+  <div class="controls">
+    <button id="onBtn" class="on">ON</button>
+    <button id="offBtn" class="off">OFF</button>
+  </div>
+
+<script>
+let stream = null;
+const video = document.getElementById('mirror');
+const onBtn = document.getElementById('onBtn');
+const offBtn = document.getElementById('offBtn');
+
+async function startCamera() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user" },
+      audio: false
+    });
+    video.srcObject = stream;
+  } catch (err) {
+    alert("Gagal mengakses kamera: " + err.message);
+  }
+}
+
+function stopCamera() {
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+    video.srcObject = null;
+    stream = null;
+  }
+}
+
+onBtn.addEventListener('click', startCamera);
+offBtn.addEventListener('click', stopCamera);
+</script>
+</body>
+</html>
